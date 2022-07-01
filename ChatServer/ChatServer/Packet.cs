@@ -52,59 +52,49 @@ public class Packet : IDisposable
     }
 
     #region Functions
-    /// <summary>Sets the packet's content and prepares it to be read.</summary>
-    /// <param name="_data">The bytes to add to the packet.</param>
     public void SetBytes(byte[] _data)
     {
         Write(_data);
         readableBuffer = buffer.ToArray();
     }
-
-    /// <summary>Inserts the length of the packet's content at the start of the buffer.</summary>
+    
     public void WriteLength()
     {
-        buffer.InsertRange(0, BitConverter.GetBytes(buffer.Count)); // Insert the byte length of the packet at the very beginning
+        buffer.InsertRange(0, BitConverter.GetBytes(buffer.Count));
     }
-
-    /// <summary>Inserts the given int at the start of the buffer.</summary>
-    /// <param name="_value">The int to insert.</param>
+    
     public void InsertInt(int _value)
     {
-        buffer.InsertRange(0, BitConverter.GetBytes(_value)); // Insert the int at the start of the buffer
+        buffer.InsertRange(0, BitConverter.GetBytes(_value));
     }
-
-    /// <summary>Gets the packet's content in array form.</summary>
+    
     public byte[] ToArray()
     {
         readableBuffer = buffer.ToArray();
         return readableBuffer;
     }
-
-    /// <summary>Gets the length of the packet's content.</summary>
+    
     public int Length()
     {
-        return buffer.Count; // Return the length of buffer
+        return buffer.Count;
     }
-
-    /// <summary>Gets the length of the unread data contained in the packet.</summary>
+    
     public int UnreadLength()
     {
-        return Length() - readPos; // Return the remaining length (unread)
+        return Length() - readPos;
     }
-
-    /// <summary>Resets the packet instance to allow it to be reused.</summary>
-    /// <param name="_shouldReset">Whether or not to reset the packet.</param>
+    
     public void Reset(bool _shouldReset = true)
     {
         if (_shouldReset)
         {
-            buffer.Clear(); // Clear buffer
+            buffer.Clear();
             readableBuffer = null;
-            readPos = 0; // Reset readPos
+            readPos = 0;
         }
         else
         {
-            readPos -= 4; // "Unread" the last read int
+            readPos -= 4;
         }
     }
     #endregion

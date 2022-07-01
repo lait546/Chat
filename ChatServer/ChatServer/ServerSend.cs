@@ -79,8 +79,6 @@ namespace ChatServer
                 _packet.Write(_color.g);
                 _packet.Write(_color.b);
 
-                Console.WriteLine("Color: " + _color.r + " " + _color.g + " " + _color.b);
-
                 SendTCPDataToAll(_packet);
             }
         }
