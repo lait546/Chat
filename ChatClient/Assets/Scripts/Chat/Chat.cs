@@ -39,4 +39,9 @@ public class Chat : MonoBehaviour
         ClientSend.SendMessage(inputField.text);
         inputField.text = "";
     }
+
+    public void ExitChat()
+    {
+        Application.Quit();
+    }
 }
